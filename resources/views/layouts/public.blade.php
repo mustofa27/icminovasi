@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'ICM Inovasi Indonesia - Informatics, Creative & Mechatronics')</title>
     <meta name="description" content="@yield('meta_description', 'ICM Inovasi Indonesia provides innovative solutions in Informatics, Creative, and Mechatronics.')">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -25,9 +27,10 @@
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="max-w-7xl mx-auto">
                 <div class="flex justify-between items-center h-16">
-                    <h1 class="text-lg sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
-                        ICM Inovasi
-                    </h1>
+                    <a href="{{ url('/') }}" class="flex items-center gap-3">
+                        <img src="{{ url('images/icm-logo.png') }}" alt="ICM Inovasi Indonesia" class="h-10 sm:h-12 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="hidden text-lg sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">ICM Inovasi</span>
+                    </a>
                     <button id="nav-toggle" class="md:hidden text-gray-700 hover:text-purple-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>

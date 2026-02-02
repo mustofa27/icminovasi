@@ -6,6 +6,9 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
         <div>
+            <div class="flex justify-center mb-4">
+                <img src="{{ url('images/icm-logo.png') }}" alt="ICM Inovasi Indonesia" class="h-16 w-auto" onerror="this.style.display='none'">
+            </div>
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
                 ICM Inovasi Indonesia
             </h2>

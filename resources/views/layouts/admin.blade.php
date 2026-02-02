@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin') - ICM Inovasi Indonesia</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -16,7 +18,10 @@
                     <button id="menu-btn" class="sm:hidden text-gray-600 hover:text-gray-900">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <h1 class="text-lg sm:text-xl font-bold text-gray-800">ICM Inovasi</h1>
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2">
+                        <img src="{{ url('images/icm-logo.png') }}" alt="ICM Inovasi Indonesia" class="h-8 sm:h-10 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="text-lg sm:text-xl font-bold text-gray-800">ICM Inovasi</span>
+                    </a>
                 </div>
 
                 <!-- Desktop Menu -->
