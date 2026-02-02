@@ -28,7 +28,7 @@
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="text-sm font-medium text-gray-900">{{ $project->name }}</div>
-                        <div class="text-sm text-gray-500">{{ Str::limit($project->short_description, 50) }}</div>
+                        <div class="text-sm text-gray-500">{!! Str::limit($project->short_description, 50) !!}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {{ $project->client->name ?? 'N/A' }}

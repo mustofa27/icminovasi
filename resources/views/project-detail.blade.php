@@ -45,7 +45,7 @@
                 <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
                     <h2 class="text-3xl font-bold mb-4">Project Overview</h2>
                     <div class="prose prose-lg max-w-none">
-                        <p class="text-gray-700 whitespace-pre-wrap">{{ $project->description }}</p>
+                        <div class="text-gray-700 prose max-w-none">{!! $project->description !!}</div>
                     </div>
                 </div>
 
@@ -226,7 +226,7 @@
                     @endif
                     <div class="p-4">
                         <h3 class="font-bold text-gray-900 group-hover:text-purple-600 transition">{{ $related->name }}</h3>
-                        <p class="text-sm text-gray-600 mt-2">{{ $related->short_description }}</p>
+                        <p class="text-sm text-gray-600 mt-2">{!! $related->short_description !!}</p>
                     </div>
                 </div>
             </a>

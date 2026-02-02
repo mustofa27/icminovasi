@@ -40,7 +40,7 @@
                                 </span>
                             </div>
                             <h3 class="text-xl font-bold mb-2 group-hover:text-purple-600 transition">{{ $project->name }}</h3>
-                            <p class="text-gray-600 text-sm mb-4">{{ $project->short_description }}</p>
+                            <div class="text-gray-600 text-sm mb-4">{{ Str::limit(strip_tags($project->description), 120) }}</div>
                             <div class="flex items-center justify-between text-sm text-gray-500">
                                 <span>{{ $project->client?->name ?? 'Client' }}</span>
                                 <span>{{ $project->start_date->format('M Y') }}</span>

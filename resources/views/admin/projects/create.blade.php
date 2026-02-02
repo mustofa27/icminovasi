@@ -38,7 +38,7 @@
                 <!-- Description -->
                 <div>
                     <label for="description" class="block text-sm font-medium text-gray-700">Full Description *</label>
-                    <textarea name="description" id="description" rows="5" required
+                    <textarea name="description" id="description" rows="5"
                               class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">{{ old('description') }}</textarea>
                     @error('description')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
                 </div>
@@ -134,4 +134,24 @@
         </form>
     </div>
 </div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script>
+    let projectEditor;
+
+    ClassicEditor
+        .create(document.querySelector('#description'))
+        .then(editor => {
+            projectEditor = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    document.querySelector('form')?.addEventListener('submit', () => {
+        if (projectEditor) {
+            document.querySelector('#description').value = projectEditor.getData();
+        }
+    });
+</script>
 @endsection

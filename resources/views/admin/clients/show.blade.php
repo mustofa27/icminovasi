@@ -87,7 +87,7 @@
                                         {{ ucfirst($project->status) }}
                                     </span>
                                 </div>
-                                <p class="mt-1 text-sm text-gray-500">{{ $project->short_description }}</p>
+                                <p class="mt-1 text-sm text-gray-500">{!! $project->short_description !!}</p>
                             </a>
                         </li>
                     @endforeach
