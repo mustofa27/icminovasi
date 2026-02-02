@@ -78,9 +78,9 @@ class DatabaseSeeder extends Seeder
 Melalui versi terbaru ini, Jari Kaki Lima V23 juga memfasilitasi bidan dan tenaga kesehatan dalam melakukan pendataan kesehatan secara komprehensif dan terintegrasi. Data yang dikumpulkan mencakup informasi ibu hamil, kondisi kesehatan, faktor risiko kehamilan, serta hasil pemantauan rutin yang dapat diakses dengan mudah untuk mendukung pengambilan keputusan medis.
 
 Dengan memanfaatkan teknologi digital, aplikasi ini bertujuan untuk meningkatkan kualitas pelayanan kesehatan ibu dan masyarakat, mempercepat alur pelaporan, serta memperkuat kolaborasi antara kader, bidan, dan instansi kesehatan. Kehadiran Jari Kaki Lima V23 diharapkan mampu menurunkan risiko komplikasi kehamilan, meningkatkan kesadaran masyarakat terhadap pentingnya kesehatan ibu dan anak, serta mendorong terciptanya sistem pemantauan kesehatan yang lebih efektif, akurat, dan berkelanjutan di Kabupaten Sampang.',
-                'challenges' => '',
-                'solutions' => '',
-                'results' => '',
+                'challenges' => null,
+                'solutions' => null,
+                'results' => null,
                 'area_of_expertise' => 'informatics',
                 'status' => 'completed',
                 'team_size' => null,
@@ -89,8 +89,8 @@ Dengan memanfaatkan teknologi digital, aplikasi ini bertujuan untuk meningkatkan
                 'technologies_used' => [],
                 'is_featured' => true,
                 'is_published' => true,
-                'seo_title' => '',
-                'seo_description' => '',
+                'meta_title' => null,
+                'meta_description' => null,
                 'client_id' => 1,
             ],
         ];
