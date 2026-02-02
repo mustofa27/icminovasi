@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'ICM Inovasi Indonesia - Informatics, Creative & Mechatronics')</title>
     <meta name="description" content="@yield('meta_description', 'ICM Inovasi Indonesia provides innovative solutions in Informatics, Creative, and Mechatronics.')">
+    <meta name="facebook-domain-verification" content="jwj88ahn1vc3bee03cvltp1ueqy7oy" />
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
