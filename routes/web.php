@@ -17,7 +17,10 @@ use App\Http\Controllers\Admin\CommentController;
 
 // Public Routes
 Route::get('/', [LandingController::class, 'index'])->name('home');
+Route::get('/projects', [LandingController::class, 'allProjects'])->name('projects.index');
 Route::get('/projects/{project:slug}', [LandingController::class, 'showProject'])->name('projects.show');
+Route::get('/clients', [LandingController::class, 'allClients'])->name('clients.index');
+Route::get('/testimonials', [LandingController::class, 'allTestimonials'])->name('testimonials.index');
 Route::post('/inquiries', [InquiryController::class, 'store'])->name('inquiries.store');
 
 // Blog Routes

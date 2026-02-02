@@ -1,6 +1,6 @@
-@extends('layouts.public')
+@extends('layouts.blog')
 
-@section('title', $article->title)
+@section('title', $article->title . ' - ICM Inovasi Indonesia')
 @section('meta_description', $article->meta_description ?? Str::limit($article->content, 150))
 
 @section('content')
@@ -39,8 +39,8 @@
                         @if($liked) bg-red-100 text-red-600 hover:bg-red-200
                         @else bg-gray-100 text-gray-600 hover:bg-gray-200
                         @endif"
-                        data-article-id="{{ $article->id }}"
-                        onclick="toggleLike({{ $article->id }})">
+                        data-like-url="{{ route('articles.like', $article) }}"
+                        onclick="toggleLike(this)">
                         <i class="fas fa-heart"></i>
                         <span class="likes-count">{{ $article->likes_count }}</span>
                     </button>
@@ -130,30 +130,50 @@
 </article>
 
 <script>
-function toggleLike(articleId) {
-    fetch(`/blog/${articleId}/like`, {
+function toggleLike(button) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+    const likeUrl = button.getAttribute('data-like-url');
+    
+    if (!csrfToken) {
+        alert('Session expired. Please refresh the page.');
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('_token', csrfToken.content);
+    
+    fetch(likeUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
-        }
+            'X-CSRF-TOKEN': csrfToken.content,
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Unable to process your request');
+        }
+        return response.json();
+    })
     .then(data => {
-        const btn = document.querySelector('.like-btn');
-        const likesCount = document.querySelector('.likes-count');
+        const likesCount = button.querySelector('.likes-count');
         
         likesCount.textContent = data.likes_count;
         
         if (data.liked) {
-            btn.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
-            btn.classList.add('bg-red-100', 'text-red-600', 'hover:bg-red-200');
+            button.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
+            button.classList.add('bg-red-100', 'text-red-600', 'hover:bg-red-200');
         } else {
-            btn.classList.remove('bg-red-100', 'text-red-600', 'hover:bg-red-200');
-            btn.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
+            button.classList.remove('bg-red-100', 'text-red-600', 'hover:bg-red-200');
+            button.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Like error:', error);
+        alert('Unable to like this article. Please try again later.');
+    });
 }
 </script>
 @endsection

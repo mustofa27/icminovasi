@@ -58,6 +58,43 @@ class LandingController extends Controller
     }
 
     /**
+     * Display all projects.
+     */
+    public function allProjects(): View
+    {
+        $projects = Project::where('is_published', true)
+            ->with('client')
+            ->latest()
+            ->paginate(12);
+
+        return view('projects.index', compact('projects'));
+    }
+
+    /**
+     * Display all clients.
+     */
+    public function allClients(): View
+    {
+        $clients = Client::withCount('projects')
+            ->orderBy('projects_count', 'desc')
+            ->paginate(16);
+
+        return view('clients.index', compact('clients'));
+    }
+
+    /**
+     * Display all testimonials.
+     */
+    public function allTestimonials(): View
+    {
+        $testimonials = Testimonial::where('is_published', true)
+            ->latest()
+            ->paginate(12);
+
+        return view('testimonials.index', compact('testimonials'));
+    }
+
+    /**
      * Display project details.
      */
     public function showProject(Project $project): View

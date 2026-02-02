@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'ICM Inovasi Indonesia - Informatics, Creative & Mechatronics')</title>
     <meta name="description" content="@yield('meta_description', 'ICM Inovasi Indonesia provides innovative solutions in Informatics, Creative, and Mechatronics.')">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
@@ -171,10 +172,17 @@
     @if($featured_projects->count() > 0)
     <section id="projects" class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-4">Featured Projects</h2>
-            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-                Explore some of our most successful projects across all three areas of expertise.
-            </p>
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8">
+                <div class="text-center sm:text-left flex-1">
+                    <h2 class="text-4xl font-bold mb-4">Featured Projects</h2>
+                    <p class="text-gray-600 max-w-2xl">
+                        Explore some of our most successful projects across all three areas of expertise.
+                    </p>
+                </div>
+                <a href="{{ route('projects.index') }}" class="mt-4 sm:mt-0 text-purple-600 hover:text-purple-800 font-semibold">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
             <div class="grid md:grid-cols-3 gap-8">
                 @foreach($featured_projects as $project)
                 <a href="{{ route('projects.show', $project) }}" class="hover-scale group">
@@ -264,7 +272,7 @@
                     <h2 class="text-4xl font-bold mb-3">Latest Articles</h2>
                     <p class="text-gray-600">Insights and updates from our team.</p>
                 </div>
-                <a href="#blog" class="mt-4 sm:mt-0 text-purple-600 hover:text-purple-800 font-semibold">
+                <a href="{{ route('articles.index') }}" class="mt-4 sm:mt-0 text-purple-600 hover:text-purple-800 font-semibold">
                     View All <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
@@ -311,7 +319,12 @@
     @if($clients->count() > 0)
     <section id="clients" class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12">Our Clients</h2>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-12">
+                <h2 class="text-4xl font-bold text-center sm:text-left">Our Clients</h2>
+                <a href="{{ route('clients.index') }}" class="mt-4 sm:mt-0 text-purple-600 hover:text-purple-800 font-semibold text-center sm:text-left">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 @foreach($clients as $client)
                 <div class="bg-gray-50 rounded-lg p-8 flex flex-col items-center justify-center hover:shadow-lg transition">
@@ -331,7 +344,12 @@
     @if($testimonials->count() > 0)
     <section id="testimonials" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-12">What Clients Say</h2>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-12">
+                <h2 class="text-4xl font-bold text-center sm:text-left">What Clients Say</h2>
+                <a href="{{ route('testimonials.index') }}" class="mt-4 sm:mt-0 text-purple-600 hover:text-purple-800 font-semibold text-center sm:text-left">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
             <div class="grid md:grid-cols-3 gap-8">
                 @foreach($testimonials as $testimonial)
                 <div class="bg-white rounded-lg shadow-lg p-6 border-l-4 border-purple-600">

@@ -1,6 +1,6 @@
-@extends('layouts.public')
+@extends('layouts.blog')
 
-@section('title', 'Blog')
+@section('title', 'Blog - ICM Inovasi Indonesia')
 @section('meta_description', 'Read our latest articles about informatics, creative, and mechatronics innovations')
 
 @section('content')
