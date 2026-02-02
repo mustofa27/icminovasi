@@ -43,9 +43,15 @@
                     </button>
                     <div class="hidden md:flex space-x-1">
                         <a href="#services" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Services</a>
-                        <a href="#projects" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Projects</a>
-                        <a href="#blog" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Blog</a>
-                        <a href="#clients" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Clients</a>
+                        @if($featured_projects->count() > 0 || $all_projects->count() > 0)
+                            <a href="#projects" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Projects</a>
+                        @endif
+                        @if($latest_articles->count() > 0)
+                            <a href="#blog" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Blog</a>
+                        @endif
+                        @if($clients->count() > 0)
+                            <a href="#clients" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Clients</a>
+                        @endif
                         @if($testimonials->count() > 0)
                             <a href="#testimonials" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Testimonials</a>
                         @endif
@@ -57,9 +63,15 @@
                 </div>
                 <div id="mobile-nav" class="hidden md:hidden pb-4 space-y-2 border-t">
                     <a href="#services" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Services</a>
-                    <a href="#projects" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Projects</a>
-                    <a href="#blog" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Blog</a>
-                    <a href="#clients" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Clients</a>
+                    @if($featured_projects->count() > 0 || $all_projects->count() > 0)
+                        <a href="#projects" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Projects</a>
+                    @endif
+                    @if($latest_articles->count() > 0)
+                        <a href="#blog" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Blog</a>
+                    @endif
+                    @if($clients->count() > 0)
+                        <a href="#clients" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Clients</a>
+                    @endif
                     @if($testimonials->count() > 0)
                         <a href="#testimonials" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Testimonials</a>
                     @endif
