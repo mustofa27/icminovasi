@@ -1,0 +1,67 @@
+# Laravel environment
+*.log
+.env
+.env.backup
+.env.production
+.env.local
+.env.*.local
+/auth.json
+/storage/*.key
+/storage/pail
+
+# Laravel directories
+/node_modules
+/vendor
+/public/build
+/public/hot
+/public/storage
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/testing
+/storage/framework/views
+/storage/logs
+/bootstrap/cache
+
+# IDE & Editor
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+/coverage
+/.phpunit.cache
+
+# Build & Compiled
+/public/css/*
+/public/js/*
+!/public/css/.gitkeep
+!/public/js/.gitkeep
+
+# Misc
+Homestead.json
+Homestead.yaml
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+composer.lock
