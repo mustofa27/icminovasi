@@ -86,15 +86,29 @@
                         Innovation and excellence in Informatics, Creative, and Mechatronics solutions.
                     </p>
                     <div class="flex gap-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook text-xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        @php
+                            $socialLinks = isset($settings) ? ($settings->social_links ?? []) : [];
+                        @endphp
+                        @if(!empty($socialLinks['facebook']))
+                            <a href="{{ $socialLinks['facebook'] }}" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook text-xl"></i></a>
+                        @endif
+                        @if(!empty($socialLinks['twitter']))
+                            <a href="{{ $socialLinks['twitter'] }}" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+                        @endif
+                        @if(!empty($socialLinks['instagram']))
+                            <a href="{{ $socialLinks['instagram'] }}" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+                        @endif
+                        @if(!empty($socialLinks['linkedin']))
+                            <a href="{{ $socialLinks['linkedin'] }}" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin text-xl"></i></a>
+                        @endif
+                        @if(!empty($socialLinks['youtube']))
+                            <a href="{{ $socialLinks['youtube'] }}" target="_blank" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube text-xl"></i></a>
+                        @endif
                     </div>
                 </div>
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
+                    <ul class="space-y-2 text-gray-400 text-sm">
                         <li><a href="{{ url('/') }}" class="hover:text-white transition">Home</a></li>
                         <li><a href="{{ url('/#services') }}" class="hover:text-white transition">Services</a></li>
                         <li><a href="{{ url('/#projects') }}" class="hover:text-white transition">Projects</a></li>
@@ -103,9 +117,9 @@
                 </div>
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><i class="fas fa-envelope mr-2"></i> info@icminovasi.com</li>
-                        <li><i class="fas fa-phone mr-2"></i> +62 xxx xxxx xxxx</li>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><i class="fas fa-envelope mr-2"></i> {{ isset($settings) ? ($settings->contact_email ?? 'info@icminovasi.com') : 'info@icminovasi.com' }}</li>
+                        <li><i class="fas fa-phone mr-2"></i> {{ isset($settings) ? ($settings->whatsapp_number ?? '+62 xxx xxxx xxxx') : '+62 xxx xxxx xxxx' }}</li>
                         <li><i class="fas fa-map-marker-alt mr-2"></i> Indonesia</li>
                     </ul>
                 </div>

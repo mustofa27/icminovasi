@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\ArticleLike;
 use App\Models\Comment;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -15,7 +16,8 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::published()->recent()->paginate(12);
-        return view('articles.index', compact('articles'));
+        $settings = Setting::first() ?? new Setting(Setting::defaults());
+        return view('articles.index', compact('articles', 'settings'));
     }
 
     /**
@@ -31,8 +33,9 @@ class ArticleController extends Controller
         $article->increment('views_count');
         $comments = $article->approvedComments()->latest()->paginate(10);
         $liked = $this->hasLiked($article);
+        $settings = Setting::first() ?? new Setting(Setting::defaults());
 
-        return view('articles.show', compact('article', 'comments', 'liked'));
+        return view('articles.show', compact('article', 'comments', 'liked', 'settings'));
     }
 
     /**

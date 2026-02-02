@@ -66,8 +66,9 @@ class LandingController extends Controller
             ->with('client')
             ->latest()
             ->paginate(12);
+        $settings = Setting::first() ?? new Setting(Setting::defaults());
 
-        return view('projects.index', compact('projects'));
+        return view('projects.index', compact('projects', 'settings'));
     }
 
     /**
@@ -78,8 +79,9 @@ class LandingController extends Controller
         $clients = Client::withCount('projects')
             ->orderBy('projects_count', 'desc')
             ->paginate(16);
+        $settings = Setting::first() ?? new Setting(Setting::defaults());
 
-        return view('clients.index', compact('clients'));
+        return view('clients.index', compact('clients', 'settings'));
     }
 
     /**
@@ -90,8 +92,9 @@ class LandingController extends Controller
         $testimonials = Testimonial::where('is_published', true)
             ->latest()
             ->paginate(12);
+        $settings = Setting::first() ?? new Setting(Setting::defaults());
 
-        return view('testimonials.index', compact('testimonials'));
+        return view('testimonials.index', compact('testimonials', 'settings'));
     }
 
     /**
