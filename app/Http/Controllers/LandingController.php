@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Client;
 use App\Models\Setting;
+use App\Models\Article;
 use App\Models\Testimonial;
 use Illuminate\View\View;
 
@@ -40,6 +41,12 @@ class LandingController extends Controller
             ->take(6)
             ->get();
 
+        $latest_articles = Article::published()
+            ->recent()
+            ->with('user')
+            ->take(3)
+            ->get();
+
         $stats = [
             'total_projects' => Project::where('is_published', true)->count(),
             'completed_projects' => Project::where('is_published', true)->where('status', 'completed')->count(),
@@ -47,7 +54,7 @@ class LandingController extends Controller
             'expertise_areas' => 3,
         ];
 
-        return view('landing', compact('featured_projects', 'all_projects', 'clients', 'testimonials', 'stats', 'settings'));
+        return view('landing', compact('featured_projects', 'all_projects', 'clients', 'testimonials', 'latest_articles', 'stats', 'settings'));
     }
 
     /**

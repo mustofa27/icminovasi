@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ClientController;
@@ -11,11 +12,19 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\CommentController;
 
 // Public Routes
 Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/projects/{project:slug}', [LandingController::class, 'showProject'])->name('projects.show');
 Route::post('/inquiries', [InquiryController::class, 'store'])->name('inquiries.store');
+
+// Blog Routes
+Route::get('/blog', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/blog/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
+Route::post('/blog/{article:slug}/comments', [ArticleController::class, 'storeComment'])->name('comments.store');
+Route::post('/blog/{article:slug}/like', [ArticleController::class, 'toggleLike'])->name('articles.like');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -38,6 +47,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'content.manage'])->
 
     // Testimonials Management
     Route::resource('testimonials', TestimonialController::class);
+
+    // Articles Management
+    Route::resource('articles', AdminArticleController::class);
+
+    // Comments Management
+    Route::resource('comments', CommentController::class, ['only' => ['index', 'edit', 'update', 'destroy']]);
 
     // General Settings
     Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');

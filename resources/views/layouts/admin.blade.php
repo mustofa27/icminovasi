@@ -38,6 +38,12 @@
                     <a href="{{ route('admin.testimonials.index') }}" class="text-gray-600 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition">
                         Testimonials
                     </a>
+                    <a href="{{ route('admin.articles.index') }}" class="text-gray-600 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition">
+                        Articles
+                    </a>
+                    <a href="{{ route('admin.comments.index') }}" class="text-gray-600 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition">
+                        Comments
+                    </a>
                     <a href="{{ route('admin.inquiries.index') }}" class="text-gray-600 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition">
                         Inquiries
                     </a>
@@ -77,6 +83,12 @@
                 </a>
                 <a href="{{ route('admin.testimonials.index') }}" class="block text-gray-600 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition">
                     Testimonials
+                </a>
+                <a href="{{ route('admin.articles.index') }}" class="block text-gray-600 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition">
+                    Articles
+                </a>
+                <a href="{{ route('admin.comments.index') }}" class="block text-gray-600 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition">
+                    Comments
                 </a>
                 <a href="{{ route('admin.inquiries.index') }}" class="block text-gray-600 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition">
                     Inquiries

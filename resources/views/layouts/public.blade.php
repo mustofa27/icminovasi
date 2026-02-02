@@ -19,6 +19,12 @@
         .hover-scale:hover {
             transform: translateY(-5px);
         }
+        .nav-active {
+            color: #6d28d9;
+            background-color: #ede9fe;
+            font-weight: 600;
+            box-shadow: inset 0 -2px 0 0 #7c3aed;
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -35,8 +41,9 @@
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                     <div class="hidden md:flex space-x-1">
-                        <a href="#projects" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Projects</a>
                         <a href="#services" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Services</a>
+                        <a href="#projects" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Projects</a>
+                        <a href="#blog" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Blog</a>
                         <a href="#clients" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Clients</a>
                         @if($testimonials->count() > 0)
                             <a href="#testimonials" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Testimonials</a>
@@ -48,8 +55,9 @@
                     @endauth
                 </div>
                 <div id="mobile-nav" class="hidden md:hidden pb-4 space-y-2 border-t">
-                    <a href="#projects" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Projects</a>
                     <a href="#services" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Services</a>
+                    <a href="#projects" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Projects</a>
+                    <a href="#blog" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Blog</a>
                     <a href="#clients" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Clients</a>
                     @if($testimonials->count() > 0)
                         <a href="#testimonials" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Testimonials</a>
@@ -241,6 +249,58 @@
                         </div>
                     </div>
                 </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
+    <!-- Latest Blog Section -->
+    @if($latest_articles->count() > 0)
+    <section id="blog" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">
+                <div>
+                    <h2 class="text-4xl font-bold mb-3">Latest Articles</h2>
+                    <p class="text-gray-600">Insights and updates from our team.</p>
+                </div>
+                <a href="#blog" class="mt-4 sm:mt-0 text-purple-600 hover:text-purple-800 font-semibold">
+                    View All <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($latest_articles as $article)
+                <article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition hover-scale group">
+                    @if($article->featured_image)
+                        <div class="h-48 overflow-hidden bg-gray-200">
+                            <img src="{{ asset('storage/' . $article->featured_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                        </div>
+                    @else
+                        <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
+                            <i class="fas fa-newspaper text-white text-4xl"></i>
+                        </div>
+                    @endif
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3 text-sm text-gray-500">
+                            <span>{{ $article->published_at?->format('M d, Y') }}</span>
+                            <span>•</span>
+                            <span>{{ $article->user?->name ?? 'ICM Inovasi' }}</span>
+                        </div>
+                        <a href="{{ route('articles.show', $article) }}">
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-purple-600 transition">{{ $article->title }}</h3>
+                        </a>
+                        <p class="text-gray-600 text-sm mb-4">
+                            {{ $article->excerpt ?? Str::limit(strip_tags($article->content), 120) }}
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <div class="flex gap-4">
+                                <span><i class="fas fa-eye mr-1"></i> {{ $article->views_count }}</span>
+                                <span><i class="fas fa-heart mr-1"></i> {{ $article->likes_count }}</span>
+                                <span><i class="fas fa-comment mr-1"></i> {{ $article->comments_count }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
                 @endforeach
             </div>
         </div>
@@ -445,6 +505,46 @@
             const menu = document.getElementById('mobile-nav');
             menu.classList.toggle('hidden');
         });
+
+        const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+        const sections = Array.from(document.querySelectorAll('section[id]'));
+
+        function setActiveLink(id) {
+            navLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === `#${id}`;
+                link.classList.toggle('nav-active', isActive);
+            });
+        }
+
+        function updateActiveOnScroll() {
+            const offset = 120;
+            const scrollPos = window.scrollY + offset;
+            let currentSection = sections[0];
+
+            sections.forEach(section => {
+                if (section.offsetTop <= scrollPos) {
+                    currentSection = section;
+                }
+            });
+
+            if (currentSection) {
+                setActiveLink(currentSection.id);
+            }
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const targetId = link.getAttribute('href').replace('#', '');
+                if (targetId) {
+                    setActiveLink(targetId);
+                }
+            });
+        });
+
+        if (sections.length > 0) {
+            updateActiveOnScroll();
+            window.addEventListener('scroll', updateActiveOnScroll, { passive: true });
+        }
     </script>
 </body>
 </html>

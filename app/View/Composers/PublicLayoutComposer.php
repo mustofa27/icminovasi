@@ -15,6 +15,7 @@ class PublicLayoutComposer
             'testimonials' => $view->getData()['testimonials'] ?? collect(),
             'featured_projects' => $view->getData()['featured_projects'] ?? collect(),
             'all_projects' => $view->getData()['all_projects'] ?? collect(),
+            'latest_articles' => $view->getData()['latest_articles'] ?? collect(),
             'clients' => $view->getData()['clients'] ?? collect(),
             'settings' => $view->getData()['settings'] ?? new \App\Models\Setting(\App\Models\Setting::defaults()),
             'stats' => $view->getData()['stats'] ?? [
