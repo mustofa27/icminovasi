@@ -107,7 +107,7 @@
                     <div class="bg-white bg-opacity-10 rounded-lg p-8 backdrop-blur">
                         <div class="grid grid-cols-3 gap-4 text-center">
                             <div class="p-4">
-                                <div class="text-4xl font-bold">{{ $stats['total_projects'] }}</div>
+                                <div class="text-4xl font-bold">{{ $stats['completed_projects'] }}</div>
                                 <div class="text-sm text-purple-200">Projects Completed</div>
                             </div>
                             <div class="p-4 border-l border-r border-purple-300">

@@ -20,6 +20,7 @@ class PublicLayoutComposer
             'settings' => $view->getData()['settings'] ?? new \App\Models\Setting(\App\Models\Setting::defaults()),
             'stats' => $view->getData()['stats'] ?? [
                 'total_projects' => 0,
+                'completed_projects' => 0,
                 'total_clients' => 0,
                 'expertise_areas' => 0,
             ],
