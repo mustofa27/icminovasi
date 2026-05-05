@@ -21,7 +21,7 @@ class PublicLayoutComposer
             'stats' => $view->getData()['stats'] ?? [
                 'total_projects' => 0,
                 'total_clients' => 0,
-                'expertise_areas' => 3,
+                'expertise_areas' => 0,
             ],
         ]);
     }

@@ -33,10 +33,14 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {{ $project->client->name ?? 'N/A' }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
-                            {{ ucfirst($project->area_of_expertise) }}
-                        </span>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            @foreach($project->expertise_areas as $expertise)
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">
+                                    {{ ucfirst($expertise) }}
+                                </span>
+                            @endforeach
+                        </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 

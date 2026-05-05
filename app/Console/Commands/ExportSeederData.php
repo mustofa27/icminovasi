@@ -66,7 +66,7 @@ class ExportSeederData extends Command
             $this->line("    'challenges' => '" . addslashes($project->challenges ?? '') . "',");
             $this->line("    'solutions' => '" . addslashes($project->solutions ?? '') . "',");
             $this->line("    'results' => '" . addslashes($project->results ?? '') . "',");
-            $this->line("    'area_of_expertise' => '" . addslashes($project->area_of_expertise) . "',");
+            $this->line("    'area_of_expertise' => " . json_encode($project->expertise_areas) . ",");
             $this->line("    'status' => '" . addslashes($project->status) . "',");
             $this->line("    'team_size' => " . ($project->team_size ?? 'null') . ",");
             $this->line("    'start_date' => '" . ($project->start_date?->format('Y-m-d') ?? '') . "',");

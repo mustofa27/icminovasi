@@ -61,15 +61,17 @@
 
                 <!-- Area of Expertise -->
                 <div>
-                    <label for="area_of_expertise" class="block text-sm font-medium text-gray-700">Area of Expertise *</label>
-                    <select name="area_of_expertise" id="area_of_expertise" required
+                    <label for="area_of_expertise" class="block text-sm font-medium text-gray-700">Areas of Expertise *</label>
+                    <select name="area_of_expertise[]" id="area_of_expertise" required multiple
                             class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="">Select area</option>
-                        <option value="informatics" {{ old('area_of_expertise', $project->area_of_expertise) === 'informatics' ? 'selected' : '' }}>Informatics</option>
-                        <option value="creative" {{ old('area_of_expertise', $project->area_of_expertise) === 'creative' ? 'selected' : '' }}>Creative</option>
-                        <option value="mechatronics" {{ old('area_of_expertise', $project->area_of_expertise) === 'mechatronics' ? 'selected' : '' }}>Mechatronics</option>
+                        @php($selectedAreas = old('area_of_expertise', $project->expertise_areas))
+                        <option value="informatics" {{ in_array('informatics', $selectedAreas, true) ? 'selected' : '' }}>Informatics</option>
+                        <option value="creative" {{ in_array('creative', $selectedAreas, true) ? 'selected' : '' }}>Creative</option>
+                        <option value="mechatronics" {{ in_array('mechatronics', $selectedAreas, true) ? 'selected' : '' }}>Mechatronics</option>
                     </select>
+                    <p class="mt-1 text-xs text-gray-500">Hold Command (Mac) or Ctrl (Windows) to select multiple options.</p>
                     @error('area_of_expertise')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+                    @error('area_of_expertise.*')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
                 </div>
 
                 <!-- Status -->

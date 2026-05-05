@@ -28,13 +28,13 @@
                         @endif
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-semibold px-2 py-1 rounded-full
-                                    @if($project->area_of_expertise === 'informatics') bg-blue-100 text-blue-800
-                                    @elseif($project->area_of_expertise === 'creative') bg-pink-100 text-pink-800
-                                    @else bg-orange-100 text-orange-800
-                                    @endif">
-                                    {{ ucfirst($project->area_of_expertise) }}
-                                </span>
+                                <div class="flex flex-wrap gap-1">
+                                    @foreach($project->expertise_areas as $expertise)
+                                        <span class="text-xs font-semibold px-2 py-1 rounded-full {{ \App\Models\Project::expertiseBadgeClass($expertise) }}">
+                                            {{ \App\Models\Project::expertiseLabel($expertise) }}
+                                        </span>
+                                    @endforeach
+                                </div>
                                 <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-100 text-green-800">
                                     {{ ucfirst($project->status) }}
                                 </span>

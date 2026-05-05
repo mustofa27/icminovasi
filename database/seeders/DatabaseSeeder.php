@@ -81,7 +81,7 @@ Dengan memanfaatkan teknologi digital, aplikasi ini bertujuan untuk meningkatkan
                 'challenges' => null,
                 'solutions' => null,
                 'results' => null,
-                'area_of_expertise' => 'informatics',
+                'area_of_expertise' => ['informatics'],
                 'status' => 'completed',
                 'team_size' => null,
                 'start_date' => '2023-01-01',

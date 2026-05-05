@@ -14,13 +14,11 @@
         </a>
         <h1 class="text-5xl font-bold mb-4">{{ $project->name }}</h1>
         <div class="flex flex-wrap gap-4 items-center">
-            <span class="px-4 py-2 rounded-full text-sm font-semibold
-                @if($project->area_of_expertise === 'informatics') bg-blue-100 text-blue-800
-                @elseif($project->area_of_expertise === 'creative') bg-pink-100 text-pink-800
-                @else bg-orange-100 text-orange-800
-                @endif">
-                {{ ucfirst($project->area_of_expertise) }}
-            </span>
+            @foreach($project->expertise_areas as $expertise)
+                <span class="px-4 py-2 rounded-full text-sm font-semibold {{ \App\Models\Project::expertiseBadgeClass($expertise) }}">
+                    {{ \App\Models\Project::expertiseLabel($expertise) }}
+                </span>
+            @endforeach
             <span class="px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-800">
                 {{ ucfirst($project->status) }}
             </span>
@@ -120,7 +118,7 @@
 
                         <div class="pb-4 border-b">
                             <p class="text-sm text-gray-600 font-semibold">Expertise</p>
-                            <p class="text-lg font-semibold text-gray-900">{{ ucfirst($project->area_of_expertise) }}</p>
+                            <p class="text-lg font-semibold text-gray-900">{{ implode(', ', array_map('ucfirst', $project->expertise_areas)) }}</p>
                         </div>
 
                         <div class="pb-4 border-b">

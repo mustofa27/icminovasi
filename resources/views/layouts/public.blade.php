@@ -211,13 +211,13 @@
                         @endif
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-semibold px-2 py-1 rounded-full
-                                    @if($project->area_of_expertise === 'informatics') bg-blue-100 text-blue-800
-                                    @elseif($project->area_of_expertise === 'creative') bg-pink-100 text-pink-800
-                                    @else bg-orange-100 text-orange-800
-                                    @endif">
-                                    {{ ucfirst($project->area_of_expertise) }}
-                                </span>
+                                <div class="flex flex-wrap gap-1">
+                                    @foreach($project->expertise_areas as $expertise)
+                                        <span class="text-xs font-semibold px-2 py-1 rounded-full {{ \App\Models\Project::expertiseBadgeClass($expertise) }}">
+                                            {{ \App\Models\Project::expertiseLabel($expertise) }}
+                                        </span>
+                                    @endforeach
+                                </div>
                                 <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-100 text-green-800">
                                     {{ ucfirst($project->status) }}
                                 </span>
@@ -254,13 +254,13 @@
                         <div class="flex-grow">
                             <div class="flex items-center gap-3 mb-2">
                                 <h3 class="text-xl font-bold">{{ $project->name }}</h3>
-                                <span class="text-xs font-semibold px-2 py-1 rounded-full
-                                    @if($project->area_of_expertise === 'informatics') bg-blue-100 text-blue-800
-                                    @elseif($project->area_of_expertise === 'creative') bg-pink-100 text-pink-800
-                                    @else bg-orange-100 text-orange-800
-                                    @endif">
-                                    {{ ucfirst($project->area_of_expertise) }}
-                                </span>
+                                <div class="flex flex-wrap gap-1">
+                                    @foreach($project->expertise_areas as $expertise)
+                                        <span class="text-xs font-semibold px-2 py-1 rounded-full {{ \App\Models\Project::expertiseBadgeClass($expertise) }}">
+                                            {{ \App\Models\Project::expertiseLabel($expertise) }}
+                                        </span>
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="text-gray-600">{{ Str::limit(strip_tags($project->description), 120) }}</div>
                             <div class="flex gap-4 mt-3 text-sm text-gray-500">

@@ -44,7 +44,8 @@ class ProjectController extends Controller
             'short_description' => 'required|string|max:255',
             'description' => 'required|string',
             'client_id' => 'required|exists:clients,id',
-            'area_of_expertise' => 'required|in:informatics,creative,mechatronics',
+            'area_of_expertise' => 'required|array|min:1',
+            'area_of_expertise.*' => 'in:' . implode(',', Project::EXPERTISE_OPTIONS),
             'technologies_used' => 'nullable|array',
             'project_value' => 'nullable|numeric|min:0',
             'team_size' => 'nullable|integer|min:1',
@@ -67,6 +68,8 @@ class ProjectController extends Controller
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['name']);
         }
+
+        $validated['area_of_expertise'] = array_values(array_unique($validated['area_of_expertise']));
 
         // Handle file upload
         if ($request->hasFile('featured_image')) {
@@ -108,7 +111,8 @@ class ProjectController extends Controller
             'short_description' => 'required|string|max:255',
             'description' => 'required|string',
             'client_id' => 'required|exists:clients,id',
-            'area_of_expertise' => 'required|in:informatics,creative,mechatronics',
+            'area_of_expertise' => 'required|array|min:1',
+            'area_of_expertise.*' => 'in:' . implode(',', Project::EXPERTISE_OPTIONS),
             'technologies_used' => 'nullable|array',
             'project_value' => 'nullable|numeric|min:0',
             'team_size' => 'nullable|integer|min:1',
@@ -131,6 +135,8 @@ class ProjectController extends Controller
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['name']);
         }
+
+        $validated['area_of_expertise'] = array_values(array_unique($validated['area_of_expertise']));
 
         // Handle file upload
         if ($request->hasFile('featured_image')) {

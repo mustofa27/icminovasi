@@ -150,7 +150,7 @@
                                         {{ $project->client->name ?? 'No client' }}
                                     </p>
                                     <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
-                                        {{ ucfirst($project->area_of_expertise) }}
+                                        {{ implode(', ', array_map('ucfirst', $project->expertise_areas)) }}
                                     </p>
                                 </div>
                                 <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">

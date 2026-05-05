@@ -47,11 +47,17 @@ class LandingController extends Controller
             ->take(3)
             ->get();
 
+        $publishedProjects = Project::where('is_published', true)->get(['area_of_expertise']);
+
         $stats = [
-            'total_projects' => Project::where('is_published', true)->count(),
+            'total_projects' => $publishedProjects->count(),
             'completed_projects' => Project::where('is_published', true)->where('status', 'completed')->count(),
             'total_clients' => Client::count(),
-            'expertise_areas' => 3,
+            'expertise_areas' => $publishedProjects
+                ->pluck('expertise_areas')
+                ->flatten()
+                ->unique()
+                ->count(),
         ];
 
         return view('landing', compact('featured_projects', 'all_projects', 'clients', 'testimonials', 'latest_articles', 'stats', 'settings'));
@@ -111,9 +117,17 @@ class LandingController extends Controller
         $project->increment('views_count');
         $project->load(['client', 'testimonials']);
 
+        $projectExpertise = $project->expertise_areas;
+
         $related_projects = Project::where('is_published', true)
-            ->where('area_of_expertise', $project->area_of_expertise)
             ->where('id', '!=', $project->id)
+            ->when(!empty($projectExpertise), function ($query) use ($projectExpertise) {
+                $query->where(function ($expertiseQuery) use ($projectExpertise) {
+                    foreach ($projectExpertise as $expertise) {
+                        $expertiseQuery->orWhereJsonContains('area_of_expertise', $expertise);
+                    }
+                });
+            })
             ->take(3)
             ->get();
 
