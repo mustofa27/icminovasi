@@ -44,6 +44,7 @@
                     </button>
                     <div class="hidden md:flex space-x-1">
                         <a href="#services" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Services</a>
+                        <a href="#products" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Products</a>
                         @if($featured_projects->count() > 0 || $all_projects->count() > 0)
                             <a href="#projects" class="text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition text-sm font-medium">Projects</a>
                         @endif
@@ -64,6 +65,7 @@
                 </div>
                 <div id="mobile-nav" class="hidden md:hidden pb-4 space-y-2 border-t">
                     <a href="#services" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Services</a>
+                    <a href="#products" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Products</a>
                     @if($featured_projects->count() > 0 || $all_projects->count() > 0)
                         <a href="#projects" class="block text-gray-700 hover:text-purple-600 hover:bg-gray-50 px-3 py-2 rounded-md transition">Projects</a>
                     @endif
@@ -177,6 +179,42 @@
                         <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Automation</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Our Products</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Discover digital products developed by ICM Inovasi Indonesia and use them directly for your business operations.</p>
+            </div>
+
+            @php
+                $products = $settings->products ?? \App\Models\Setting::defaults()['products'];
+            @endphp
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($products as $product)
+                    <div class="bg-white rounded-xl shadow-lg p-7 border border-gray-100 hover:shadow-xl transition">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center">
+                                <i class="fas {{ $product['icon'] }} text-xl"></i>
+                            </div>
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full bg-green-100 text-green-800">{{ $product['status'] }}</span>
+                        </div>
+
+                        <p class="text-xs uppercase tracking-wide text-purple-600 font-semibold mb-2">{{ $product['category'] }}</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $product['name'] }}</h3>
+                        <p class="text-gray-600 text-sm mb-6">{{ $product['description'] }}</p>
+
+                        <a href="{{ $product['url'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-purple-700 font-semibold hover:text-purple-900 transition">
+                            Visit Product
+                            <i class="fas fa-arrow-up-right-from-square ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

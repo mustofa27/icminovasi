@@ -66,6 +66,59 @@
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-900">Products</h2>
+                        <button type="button" id="add-product" class="bg-indigo-100 text-indigo-700 hover:bg-indigo-200 text-sm font-medium py-2 px-3 rounded">Add Product</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Manage product cards shown on the homepage Products section.</p>
+
+                    @php($products = old('products', $settings->products ?? \App\Models\Setting::defaults()['products']))
+                    <div id="products-wrapper" class="mt-4 space-y-4">
+                        @foreach($products as $index => $product)
+                            <div class="product-item border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Product Name</label>
+                                        <input type="text" name="products[{{ $index }}][name]" value="{{ $product['name'] ?? '' }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Product URL</label>
+                                        <input type="url" name="products[{{ $index }}][url]" value="{{ $product['url'] ?? '' }}" placeholder="https://example.com" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Category</label>
+                                        <input type="text" name="products[{{ $index }}][category]" value="{{ $product['category'] ?? '' }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Status</label>
+                                        <input type="text" name="products[{{ $index }}][status]" value="{{ $product['status'] ?? '' }}" placeholder="Available" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Font Awesome Icon</label>
+                                        <input type="text" name="products[{{ $index }}][icon]" value="{{ $product['icon'] ?? '' }}" placeholder="fa-satellite-dish" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700">Description</label>
+                                        <textarea name="products[{{ $index }}][description]" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">{{ $product['description'] ?? '' }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="mt-3 text-right">
+                                    <button type="button" class="remove-product text-red-600 hover:text-red-800 text-sm font-medium">Remove</button>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    @error('products')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+                    @error('products.*.name')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+                    @error('products.*.url')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+                    @error('products.*.description')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+                    @error('products.*.category')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+                    @error('products.*.status')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+                    @error('products.*.icon')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+                </div>
             </div>
 
             <div class="mt-6 flex justify-end space-x-3">
@@ -76,4 +129,69 @@
         </form>
     </div>
 </div>
+
+<script>
+    (function () {
+        const productsWrapper = document.getElementById('products-wrapper');
+        const addButton = document.getElementById('add-product');
+
+        if (!productsWrapper || !addButton) {
+            return;
+        }
+
+        const createProductItem = (index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'product-item border border-gray-200 rounded-lg p-4 bg-gray-50';
+            wrapper.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Product Name</label>
+                        <input type="text" name="products[${index}][name]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Product URL</label>
+                        <input type="url" name="products[${index}][url]" placeholder="https://example.com" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Category</label>
+                        <input type="text" name="products[${index}][category]" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Status</label>
+                        <input type="text" name="products[${index}][status]" value="Available" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Font Awesome Icon</label>
+                        <input type="text" name="products[${index}][icon]" value="fa-cube" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea name="products[${index}][description]" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                    </div>
+                </div>
+                <div class="mt-3 text-right">
+                    <button type="button" class="remove-product text-red-600 hover:text-red-800 text-sm font-medium">Remove</button>
+                </div>
+            `;
+
+            return wrapper;
+        };
+
+        addButton.addEventListener('click', () => {
+            const index = productsWrapper.querySelectorAll('.product-item').length;
+            productsWrapper.appendChild(createProductItem(index));
+        });
+
+        productsWrapper.addEventListener('click', (event) => {
+            if (!event.target.classList.contains('remove-product')) {
+                return;
+            }
+
+            const item = event.target.closest('.product-item');
+            if (item) {
+                item.remove();
+            }
+        });
+    })();
+</script>
 @endsection

@@ -39,7 +39,29 @@ class SettingController extends Controller
             'social_links.twitter' => 'nullable|url',
             'social_links.linkedin' => 'nullable|url',
             'social_links.youtube' => 'nullable|url',
+            'products' => 'nullable|array',
+            'products.*.name' => 'nullable|string|max:255',
+            'products.*.url' => 'nullable|url|max:255',
+            'products.*.description' => 'nullable|string|max:500',
+            'products.*.category' => 'nullable|string|max:100',
+            'products.*.status' => 'nullable|string|max:50',
+            'products.*.icon' => 'nullable|string|max:100',
         ]);
+
+        $validated['products'] = collect($validated['products'] ?? [])
+            ->map(function (array $product): array {
+                return [
+                    'name' => trim($product['name'] ?? ''),
+                    'url' => trim($product['url'] ?? ''),
+                    'description' => trim($product['description'] ?? ''),
+                    'category' => trim($product['category'] ?? ''),
+                    'status' => trim($product['status'] ?? ''),
+                    'icon' => trim($product['icon'] ?? ''),
+                ];
+            })
+            ->filter(fn (array $product) => $product['name'] !== '' && $product['url'] !== '')
+            ->values()
+            ->all();
 
         $settings = Setting::first();
 

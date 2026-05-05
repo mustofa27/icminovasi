@@ -11,10 +11,12 @@ class Setting extends Model
         'whatsapp_number',
         'email_destination',
         'social_links',
+        'products',
     ];
 
     protected $casts = [
         'social_links' => 'array',
+        'products' => 'array',
     ];
 
     public static function defaults(): array
@@ -29,6 +31,16 @@ class Setting extends Model
                 'twitter' => null,
                 'linkedin' => null,
                 'youtube' => null,
+            ],
+            'products' => [
+                [
+                    'name' => 'ICM MQTT Broker',
+                    'url' => 'https://mqtt.icminovasi.my.id',
+                    'description' => 'Managed MQTT endpoint for IoT communication, telemetry ingestion, and real-time messaging workflows.',
+                    'category' => 'IoT Platform',
+                    'status' => 'Available',
+                    'icon' => 'fa-satellite-dish',
+                ],
             ],
         ];
     }
