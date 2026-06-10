@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Models\Article;
+use App\Models\Project;
 
 // Public Routes
 Route::get('/', [LandingController::class, 'index'])->name('home');
@@ -22,6 +24,48 @@ Route::get('/projects/{project:slug}', [LandingController::class, 'showProject']
 Route::get('/clients', [LandingController::class, 'allClients'])->name('clients.index');
 Route::get('/testimonials', [LandingController::class, 'allTestimonials'])->name('testimonials.index');
 Route::post('/inquiries', [InquiryController::class, 'store'])->name('inquiries.store');
+
+Route::get('/sitemap.xml', function () {
+    $staticPages = [
+        ['loc' => route('home'), 'lastmod' => now()],
+        ['loc' => route('projects.index'), 'lastmod' => now()],
+        ['loc' => route('clients.index'), 'lastmod' => now()],
+        ['loc' => route('testimonials.index'), 'lastmod' => now()],
+        ['loc' => route('articles.index'), 'lastmod' => now()],
+    ];
+
+    $projects = Project::query()
+        ->where('is_published', true)
+        ->select('slug', 'updated_at')
+        ->latest('updated_at')
+        ->get()
+        ->map(function (Project $project) {
+            return [
+                'loc' => route('projects.show', $project),
+                'lastmod' => $project->updated_at,
+            ];
+        });
+
+    $articles = Article::query()
+        ->published()
+        ->select('slug', 'updated_at')
+        ->latest('updated_at')
+        ->get()
+        ->map(function (Article $article) {
+            return [
+                'loc' => route('articles.show', $article),
+                'lastmod' => $article->updated_at,
+            ];
+        });
+
+    $urls = collect($staticPages)
+        ->concat($projects)
+        ->concat($articles);
+
+    return response()
+        ->view('sitemap', ['urls' => $urls])
+        ->header('Content-Type', 'application/xml');
+})->name('sitemap');
 
 // Blog Routes
 Route::get('/blog', [ArticleController::class, 'index'])->name('articles.index');

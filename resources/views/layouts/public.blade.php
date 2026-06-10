@@ -6,7 +6,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'ICM Inovasi Indonesia - Informatics, Creative & Mechatronics')</title>
     <meta name="description" content="@yield('meta_description', 'ICM Inovasi Indonesia provides innovative solutions in Informatics, Creative, and Mechatronics.')">
+    <meta name="robots" content="@yield('meta_robots', 'index,follow,max-image-preview:large')">
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="@yield('og_title', trim($__env->yieldContent('title', 'ICM Inovasi Indonesia - Informatics, Creative & Mechatronics')))">
+    <meta property="og:description" content="@yield('og_description', trim($__env->yieldContent('meta_description', 'ICM Inovasi Indonesia provides innovative solutions in Informatics, Creative, and Mechatronics.')))">
+    <meta property="og:url" content="@yield('canonical_url', url()->current())">
+    <meta property="og:image" content="@yield('og_image', asset('images/favicon.png'))">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('twitter_title', trim($__env->yieldContent('title', 'ICM Inovasi Indonesia - Informatics, Creative & Mechatronics')))">
+    <meta name="twitter:description" content="@yield('twitter_description', trim($__env->yieldContent('meta_description', 'ICM Inovasi Indonesia provides innovative solutions in Informatics, Creative, and Mechatronics.')))">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('images/favicon.png'))">
     <meta name="facebook-domain-verification" content="jwj88ahn1vc3bee03cvltp1ueqy7oy" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ route('sitemap') }}">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>

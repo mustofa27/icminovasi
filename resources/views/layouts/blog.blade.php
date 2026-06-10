@@ -6,6 +6,18 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'ICM Inovasi Indonesia - Blog')</title>
     <meta name="description" content="@yield('meta_description', 'Read our latest articles and insights.')">
+    <meta name="robots" content="@yield('meta_robots', 'index,follow,max-image-preview:large')">
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="@yield('og_title', trim($__env->yieldContent('title', 'ICM Inovasi Indonesia - Blog')))">
+    <meta property="og:description" content="@yield('og_description', trim($__env->yieldContent('meta_description', 'Read our latest articles and insights.')))">
+    <meta property="og:url" content="@yield('canonical_url', url()->current())">
+    <meta property="og:image" content="@yield('og_image', asset('images/favicon.png'))">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('twitter_title', trim($__env->yieldContent('title', 'ICM Inovasi Indonesia - Blog')))">
+    <meta name="twitter:description" content="@yield('twitter_description', trim($__env->yieldContent('meta_description', 'Read our latest articles and insights.')))">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('images/favicon.png'))">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ route('sitemap') }}">
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
